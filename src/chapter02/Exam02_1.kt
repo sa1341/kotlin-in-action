@@ -1,4 +1,4 @@
-package chapter01
+package chapter02
 
 import java.util.*
 

@@ -1,7 +1,6 @@
-package chapter01
+package chapter02
 
-import chapter01.Color.*
-import org.w3c.dom.css.CSS2Properties
+import chapter02.Color.*
 import java.lang.IllegalArgumentException
 import java.util.*
 
@@ -45,14 +44,24 @@ fun main(args: Array<String>) {
 
     println("RGB: ${Color.BLUE.rgb()}")
 
-    println("Mnemonic: ${getMnemonic(Color.BLUE)}")
-    println("warmth: ${getWarmth(Color.BLUE)}")
+    println("Mnemonic: ${getMnemonic(BLUE)}")
+    println("warmth: ${getWarmth(BLUE)}")
 
     println("mix: ${mix(BLUE, VIOLET).rgb()}")
     println("mixOptimized: ${mixOptimized(BLUE, VIOLET).rgb()}")
 
-    println("expression: ${eval(Sum(Sum(Num(3), Num(4)), Num(2)))}")
-    println("expression: ${evalWithLogging(Sum(Sum(Num(3), Num(4)), Num(2)))}")
+    println("expression: ${eval(
+        Sum(
+            Sum(Num(3), Num(4)),
+            Num(2)
+        )
+    )}")
+    println("expression: ${evalWithLogging(
+        Sum(
+            Sum(Num(3), Num(4)),
+            Num(2)
+        )
+    )}")
 
     for (i in 1..100) {
         println(fizzBuzz(i))
