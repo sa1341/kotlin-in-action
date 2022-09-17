@@ -1,9 +1,13 @@
 package chapter07
 
 fun main(args: Array<String>) {
+
     val map = mapOf("Oracle" to "Java", "JetBrains" to "Kotlin")
     printEntries(map)
     printEntries2(map)
+
+    val x: String by lazy {"Initialized!"}
+    println(x)
 }
 
 fun printEntries(map: Map<String, String>) {
