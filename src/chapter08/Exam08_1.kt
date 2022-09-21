@@ -15,6 +15,30 @@ fun String.filter(predicate: (Char) -> Boolean): String {
     return sb.toString()
 }
 
+fun <T> Collection<T>.joinToString(
+    seperator: String = ", ",
+    prefix: String = "",
+    postfix: String = "",
+    transform: (T) -> String = { it.toString() }
+): String {
+
+    val result = StringBuilder()
+
+    for ((index, element) in this.withIndex()) {
+        if (index > 0) result.append(seperator)
+        result.append(transform(element))
+    }
+
+    result.append(postfix)
+    return result.toString()
+}
+
 fun main(args: Array<String>) {
-   println("ab1c".filter { it in 'a'..'z' })
+    println("ab1c".filter { it in 'a'..'z' })
+
+    val letters = listOf<String>("Apple", "Beta", "Delta")
+    println(letters.joinToString())
+    println(letters.joinToString(separator = "! "
+        , prefix = "! "
+        , transform = { it.toUpperCase() }))
 }
