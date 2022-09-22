@@ -19,14 +19,15 @@ fun <T> Collection<T>.joinToString(
     seperator: String = ", ",
     prefix: String = "",
     postfix: String = "",
-    transform: (T) -> String = { it.toString() }
+    transform: ((T) -> String)? = null
 ): String {
 
     val result = StringBuilder()
 
     for ((index, element) in this.withIndex()) {
         if (index > 0) result.append(seperator)
-        result.append(transform(element))
+        val str = transform?.invoke(element) ?: element.toString()
+        result.append(str)
     }
 
     result.append(postfix)
