@@ -10,6 +10,8 @@ fun main(args: Array<String>) {
 
     println(person1 == person2)
     println("person1 = $person1, person2 = $person2")
+    Person.name = "jeancalm"
+    println(Person.goodBye())
 }
 
 interface User {
@@ -26,4 +28,6 @@ class SubScribingUser(val email: String): User {
 // object는 싱글톤 방식으로 인스턴스를 생성함.
 object Person {
     var name: String? = null
+
+    fun goodBye(): String? = name
 }
