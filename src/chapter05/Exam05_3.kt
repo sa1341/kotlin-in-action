@@ -1,7 +1,10 @@
 package chapter05
 
+fun Person.isAdult() = age >= 21
+
 fun main(args: Array<String>) {
 
+    val predicate = Person::isAdult
     val add = { a: Int, b: Int -> a +b }
     println(calculate(3, 4, add))
 
@@ -9,6 +12,9 @@ fun main(args: Array<String>) {
         Person("jean", 30),
         Person("seunghee", 10)
     )
+
+    val result = people.filter(predicate)
+    result.forEach { println(it) }
 
     /**
      * sequence를 사용하면 컬렉션의 원소의 개수가 많고, map, filter 등 연쇄적인 연산을
