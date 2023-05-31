@@ -22,7 +22,7 @@ fun main() {
     val result3 = runCatching { "성공" }
         .getOrNull()
 
-    println("result2 = $result3")
+    println("result3 = $result3")
 
     val result4 = runCatching { getStr() }
         .getOrDefault("기본 값")
