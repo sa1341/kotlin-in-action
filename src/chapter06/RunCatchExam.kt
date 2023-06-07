@@ -4,6 +4,8 @@ import java.lang.Exception
 
 fun getStr(): Nothing = throw Exception("예외 발생 기본 값으로 초기화")
 
+inline fun getStrOrThrowRuntimeException(): Nothing = throw RuntimeException("예외 발생으로 기본 값으로 초기화")
+
 fun main() {
     val result = runCatching {
         getStr()
