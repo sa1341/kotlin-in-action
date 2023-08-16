@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class EventLoop implements Runnable {
-    private static ExecutorService executorService = Executors.newFixedThreadPool(50);
+    private static ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final ServerSocketChannel serverSocket;
     private final Selector selector;
     private final EventHandler acceptor;
