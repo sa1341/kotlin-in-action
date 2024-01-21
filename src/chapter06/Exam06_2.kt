@@ -1,7 +1,6 @@
 package chapter06
 
 fun main(args: Array<String>) {
-
     var input: String? = null
     input = ""
 
@@ -15,6 +14,6 @@ fun main(args: Array<String>) {
     println(printHashCode("str"))
 }
 
-fun <T: Any> printHashCode(t: T) {
+fun <T : Any> printHashCode(t: T) {
     println(t.hashCode())
 }
