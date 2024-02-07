@@ -81,4 +81,41 @@ fun main() {
     println(formatResult("factorial", 7, ::factorial))
     println(formatResult("absolute", -42, ::abs))
     println(formatResult("absolute", -42) { if (it < 0) -it else it })
+
+    val case1 = listOf(1, 2, 3, 4, 5)
+    val case2 = listOf("a", "c", "e", "d")
+    println("isSorted: ${isSorted(case1) { a, b -> a <= b }}")
+    println("isSorted: ${isSorted(case2) { a, b -> a <= b }}")
 }
+
+val <T> List<T>.tail: List<T>
+    get() = drop(1)
+
+val <T> List<T>.head: T
+    get() = first()
+
+fun <A> isSorted(aa: List<A>, order: (A, A) -> Boolean): Boolean {
+    fun go(first: A, second: List<A>): Boolean =
+        when {
+            second.isEmpty() -> true
+            !order(first, second.head) -> false
+            else -> go(second.head, second.tail)
+        }
+
+    return aa.isEmpty() || go(aa.head, aa.tail)
+}
+
+fun <A, B, C> partial(a: A, f: (A, B) -> C): (B) -> C =
+    { b: B -> f(a, b) }
+
+fun <A, B, C> curry(f: (A, B) -> C): (A) -> (B) -> C =
+    { a: A -> { b: B -> f(a, b) } }
+
+fun <A, B, C> uncurry(f: (A) -> (B) -> (C)): (A, B) -> C =
+    { a: A, b: B -> f(a)(b) }
+
+fun <A, B, C> compose(f: (B) -> C, g: (A) -> B): (A) -> C =
+    { a: A -> f(g(a)) }
+
+fun plus(num1: Int, numb2: Int): Int =
+    num1 + numb2
