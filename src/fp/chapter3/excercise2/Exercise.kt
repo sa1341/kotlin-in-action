@@ -53,6 +53,13 @@ sealed class List<out A> {
                 is Cons -> if (f(l.head)) dropWhile(l.tail, f) else l
                 is Nil -> throw IllegalStateException("Nil cannot have a tail")
             }
+
+        fun <A> init(l: List<A>): List<A> =
+            when (l) {
+                is Cons -> if (l.tail == Nil) Nil
+                else Cons(l.head, init(l.tail))
+                is Nil -> throw IllegalStateException("cannot init Nil list")
+            }
     }
 }
 
