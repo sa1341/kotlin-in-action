@@ -56,10 +56,40 @@ sealed class List<out A> {
 
         fun <A> init(l: List<A>): List<A> =
             when (l) {
-                is Cons -> if (l.tail == Nil) Nil
-                else Cons(l.head, init(l.tail))
+                is Cons -> if (l.tail == Nil) {
+                    Nil
+                } else {
+                    Cons(l.head, init(l.tail))
+                }
                 is Nil -> throw IllegalStateException("cannot init Nil list")
             }
+
+        fun <A, B> foldRight(xs: List<A>, z: B, f: (A, B) -> B): B =
+            when (xs) {
+                is Nil -> z
+                is Cons -> f(xs.head, foldRight(xs.tail, z, f))
+            }
+
+        fun sum2(ints: List<Int>): Int =
+            foldRight(ints, 0) { a, b -> a + b }
+
+        fun <A> length(xs: List<A>): Int =
+            when (xs) {
+                is Nil -> 0
+                is Cons -> foldRight(xs, 0) { _, acc -> 1 + acc }
+            }
+
+        tailrec fun <A, B> foldLeft(xs: List<A>, z: B, f: (B, A) -> B): B =
+            when (xs) {
+                is Nil -> z
+                is Cons -> foldLeft(xs.tail, f(z, xs.head), f)
+            }
+
+        fun sum3(ints: List<Int>): Int =
+            foldLeft(ints, 0) { x, y -> x + y }
+
+        fun product2(ints: List<Double>): Double =
+            foldLeft(ints, 1.0) { x, y -> x * y }
     }
 }
 
@@ -68,3 +98,4 @@ object Nil : List<Nothing>() {
 }
 
 data class Cons<out A>(val head: A, val tail: List<A>) : List<A>()
+
