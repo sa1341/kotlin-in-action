@@ -98,4 +98,3 @@ object Nil : List<Nothing>() {
 }
 
 data class Cons<out A>(val head: A, val tail: List<A>) : List<A>()
-
