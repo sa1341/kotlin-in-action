@@ -18,6 +18,9 @@ fun main() {
 
     val fishCage3 = Cage3<Fish>()
     val animalCage: Cage3<Animal> = fishCage3
+
+    val cage5 = Cage5(mutableListOf(Eagle(), Sparrow()))
+    cage5.printAfterSorting()
 }
 
 class Cage {
@@ -39,7 +42,7 @@ class Cage {
 /**
  * 사용지점 변성 예제코드
  */
-class Cage2<T> {
+class Cage2<T : Any> {
     private val animal: MutableList<T> = mutableListOf()
 
     fun getFirst(): T {
@@ -83,5 +86,70 @@ class Cage4<in T> {
 
     fun putAll(animals: List<T>) {
         this.animal.addAll(animals)
+    }
+}
+
+class Cage5<T>(
+    private val animal: MutableList<T> = mutableListOf(),
+) where T : Animal, T : Comparable<T> {
+
+    fun printAfterSorting() {
+        this.animal.sorted()
+            .map { it.name }
+            .let(::println)
+    }
+
+    fun getFirst(): T {
+        return animal.first()
+    }
+
+    fun put(animal: T) {
+        this.animal.add(animal)
+    }
+
+    fun getAll(): List<T> {
+        return this.animal
+    }
+
+    fun moveFrom(otherCage: Cage5<T>) {
+        this.animal.addAll(otherCage.animal)
+    }
+
+    fun moveTo(otherCage: Cage5<in T>) {
+        otherCage.animal.addAll(this.animal)
+    }
+}
+
+abstract class Bird(
+    name: String,
+    private val size: Int,
+) : Animal(name), Comparable<Bird> {
+
+    override fun compareTo(other: Bird): Int {
+        return this.size.compareTo(other.size)
+    }
+}
+
+class Sparrow : Bird("참새", 100)
+class Eagle : Bird("독수리", 500)
+
+inline fun <reified T> List<*>.hasAnyInstanceOf(): Boolean {
+    return this.any { it is T }
+}
+
+fun <T> List<T>.hasIntersection(other: List<T>): Boolean {
+    return (this.toSet() intersect other.toSet()).isNotEmpty()
+}
+
+open class CageV1<T : Animal> {
+    open fun addAnimal(animal: T) {
+    }
+}
+
+class CageV2<T : Animal> : CageV1<T>()
+
+class GoldFishCageV2 : CageV1<GoldFish>() {
+    override fun addAnimal(animal: GoldFish) {
+        super.addAnimal(animal)
     }
 }
