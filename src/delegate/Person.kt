@@ -5,6 +5,7 @@ import kotlin.properties.Delegates
 import kotlin.properties.PropertyDelegateProvider
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
+import kotlin.system.measureTimeMillis
 
 /**
  * lateinit 변수는 컴파일러 단계에서 nullable 변수로 바뀌고, 변수에 접근하려 할 때 null이면 예외가 발생함.
@@ -117,5 +118,16 @@ fun main() {
 
     val p3 = Person3()
     println("name = ${p3.name}")
-    println("country = ${p3.country}")
+
+    val lazyPerson = LazyPerson()
+    val elapsedTime1 = measureTimeMillis {
+        println(lazyPerson.name)
+    }
+
+    println("elapsedTime1 = $elapsedTime1")
+
+    val elapsedTime2 = measureTimeMillis {
+        println(lazyPerson.name)
+    }
+    println("elapsedTime2 = $elapsedTime2")
 }

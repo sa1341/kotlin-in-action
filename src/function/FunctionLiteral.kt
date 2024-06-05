@@ -33,7 +33,7 @@ fun iterate(numbers: List<Int>, exec: (Int) -> Unit) {
     }
 }
 
-fun calculate(num1: Int, num2: Int, operator: Operator) = operator.calcFun(num1, num2)
+fun calculate(num1: Int, num2: Int, operator: Operator) = operator(num1 = num1, num2 = num2)
 
 enum class Operator(
     private val op: Char,
@@ -49,4 +49,8 @@ enum class Operator(
             a / b
         }
     }),
+    ;
+    operator fun invoke(num1: Int, num2: Int): Int {
+        return this.calcFun(num1, num2)
+    }
 }
