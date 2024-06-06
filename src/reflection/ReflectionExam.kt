@@ -21,9 +21,12 @@ fun main() {
 
     // KType, 타입을 표현. Int?
     val kType: KType = GoldFish::class.createType()
+    println("kType = $kType")
 
     val goldFish = GoldFish("금붕이")
-    goldFish::class.members.first { it.name == "print" }.call(goldFish)
+    goldFish::class.members
+        .firstOrNull { it.name == "print" }?.call(goldFish)
+        ?: IllegalArgumentException("해당 메서드는 존재하지 않습니다.")
 
     executeAll(Reflection())
 
